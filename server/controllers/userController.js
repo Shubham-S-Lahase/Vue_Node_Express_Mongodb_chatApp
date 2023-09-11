@@ -1,5 +1,8 @@
 const User = require('../models/user');
 const multer = require('multer');
+const jwt = require('jsonwebtoken');
+const secret = 'mysecretAkshu';
+
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -29,3 +32,20 @@ exports.register = [
     }
   }
 ];
+
+exports.login = async (req, res) => {
+    try {
+      const user = await User.findOne({ email: req.body.email });
+      if (!user) {
+        return res.status(400).send({ message: 'The email does not exist' });
+      }
+      if (user.password !== req.body.password) { // This is a simplification. In a real app you should hash and salt your passwords
+        return res.status(400).send({ message: 'The password is invalid' });
+      }
+      const payload = { id: user.id };
+      const token = jwt.sign(payload, secret, { expiresIn: '1h' });
+      res.send({ message: 'Logged in successfully', token });
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  };
