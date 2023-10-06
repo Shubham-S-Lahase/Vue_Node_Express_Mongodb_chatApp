@@ -51,10 +51,10 @@ let transporter = nodemailer.createTransport({
         html: `Please click this link to confirm your email: <a href="${url}">${url}</a>`,
       });
 
-      res.status(201).json({ token, userId: user._id });
+      res.status(201).json({ success: true, token, userId: user._id });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: "Server error" });
+      res.status(500).json({ success: false,  message: "Server error" });
     }
   };
 
