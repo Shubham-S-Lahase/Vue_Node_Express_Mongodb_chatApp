@@ -74,10 +74,10 @@ exports.login = async (req, res) => {
 
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
 
-    res.status(200).json({ token, userId: user._id });
+    res.status(200).json({ success: true, token, userId: user._id });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ success: false, message: "Server error" });
   }
 };
 
@@ -100,8 +100,9 @@ exports.forgotPassword = async (req, res) => {
     await user.save();
 
     // Send an email to the user with the reset token
-    let url = `http://localhost:3000/reset-password/${resetToken}`;
+    let url = `http://localhost:8080/reset-password/${resetToken}`;
     await transporter.sendMail({
+      
       to: user.email,
       subject: "Password Reset",
       html: `Please click this link to reset your password: <a href="${url}">${url}</a>`,
@@ -189,13 +190,14 @@ exports.getUserProfile = async (req, res) => {
       await user.save();
 
       res.status(200).json({
+        success: true,
         username: user.username,
         email: user.email,
         profilePhoto: user.profilePhoto,
       });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: "Server error" });
+      res.status(500).json({ success: false, message: "Server error" });
     }
   };
 

@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex flex-center" style="background-image: url('https://c4.wallpaperflare.com/wallpaper/752/194/470/circles-highlights-background-form-wallpaper-preview.jpg'); background-size: cover;">
+  <q-page class="flex flex-center" style="background-image: url('https://www.powertecsolutions.net/wp-content/uploads/2019/05/form-background.png'); background-size: cover;">
     <q-form @submit="submitForm" class="form">
       <q-input
         v-model="username"
@@ -39,26 +39,21 @@
 
 <style scoped>
 .form {
-  width: 300px;
-  padding: 20px;
+  width: 38%;
+  padding: 3%;
   background-color: transparent;
   border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.500);
   display: flex;
   flex-direction: column;
 }
 
 .form input {
-  margin-bottom: 20px;
-}
-
-.form input:focus {
-    border: none;
-    outline: none;
+  margin-bottom: 2%;
 }
 
 .form button {
-  margin-top: 20px;
+  margin-top: 2%;
 }
 </style>
 
